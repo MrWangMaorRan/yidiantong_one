@@ -1,0 +1,143 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_top" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/ic_logo" />
+    </RelativeLayout>
+
+    <!-- 登录相关输入布局 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <!-- 账号 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@drawable/ic_account" />
+
+            <EditText
+                android:id="@+id/et_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/input_hint_phone_num"
+                android:inputType="number"
+                android:maxLength="11"
+                android:text=""
+                android:textColor="@color/black_3d4047"
+                android:textColorHint="@color/gray_a1a5ae"
+                android:textSize="@dimen/textSize16" />
+            <!--13570649577-->
+
+            <TextView
+                android:id="@+id/tv_send_verification_code"
+                android:layout_width="112dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/send_verification_code"
+                android:textColor="@color/blue_3f74fd"
+                android:textSize="@dimen/textSize16" />
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/lineStyleHorizontal" />
+
+        <TextView
+            android:id="@+id/tv_phone_err"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="52dp"
+            android:text="@string/phone_num_err_txt"
+            android:textColor="@color/red_d81717"
+            android:textSize="@dimen/textSize14"
+            android:visibility="gone" />
+
+        <!-- 验证码 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@null"
+                android:src="@drawable/ic_password" />
+
+            <EditText
+                android:id="@+id/et_verification_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:hint="@string/input_hint_verification_code"
+                android:inputType="number"
+                android:maxLength="6"
+                android:text=""
+                android:textColor="@color/black_3d4047"
+                android:textColorHint="@color/gray_a1a5ae"
+                android:textSize="@dimen/textSize16" />
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/lineStyleHorizontal" />
+
+        <TextView
+            android:id="@+id/tv_verification_code_err"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="52dp"
+            android:text="@string/verification_code_err_txt"
+            android:textColor="@color/red_d81717"
+            android:textSize="@dimen/textSize14"
+            android:visibility="gone" />
+
+        <!-- 登录 -->
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="46dp"
+            android:background="@drawable/btn_corner_38dp_blue"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSize16" />
+
+    </LinearLayout>
+</LinearLayout>

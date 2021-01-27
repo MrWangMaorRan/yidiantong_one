@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_eceff4"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/normal"
+                        android:textColor="@color/gray_525459"
+                        android:textSize="@dimen/textSize14"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/view_checked_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/blue_2469ef"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_defined"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/user_defined"
+                        android:textColor="@color/blue_2469ef"
+                        android:textSize="@dimen/textSize14"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:id="@+id/view_checked_defined"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/blue_2469ef" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_d2d5db" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/xrv_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/ll_custom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingTop="20dp"
+                    android:paddingRight="24dp"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/customer_property"
+                        android:textColor="@color/black_3d4047"
+                        android:textSize="@dimen/textSize14" />
+
+                    <com.yidiantong.widget.ScrollViewWithGridView
+                        android:id="@+id/svgv_customer_property"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numColumns="3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/customer_intention"
+                        android:textColor="@color/black_3c3c3c"
+                        android:textSize="@dimen/textSize14" />
+
+                    <com.yidiantong.widget.ScrollViewWithGridView
+                        android:id="@+id/svgv_customer_intention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numColumns="3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/customer_emotion"
+                        android:textColor="@color/black_3c3c3c"
+                        android:textSize="@dimen/textSize14" />
+
+                    <com.yidiantong.widget.ScrollViewWithGridView
+                        android:id="@+id/svgv_customer_emotion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numColumns="3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/company_industry"
+                        android:textColor="@color/black_3c3c3c"
+                        android:textSize="@dimen/textSize14" />
+
+                    <com.yidiantong.widget.ScrollViewWithGridView
+                        android:id="@+id/svgv_company_industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numColumns="3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18dp"
+                        android:text="@string/other"
+                        android:textColor="@color/black_3c3c3c"
+                        android:textSize="@dimen/textSize14" />
+
+                    <com.yidiantong.widget.ScrollViewWithGridView
+                        android:id="@+id/svgv_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numColumns="3" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_bottom_btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/btn_transparent_with_halftransparent"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textColor="@color/blue_3f74fd"
+                android:textSize="@dimen/textSize16" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@+id/btn_confirm"
+                android:background="@drawable/btn_transparent_with_halftransparent"
+                android:gravity="center"
+                android:text="@string/re_set"
+                android:textColor="@color/blue_3f74fd"
+                android:textSize="@dimen/textSize16" />
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

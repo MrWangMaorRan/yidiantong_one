@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_f3f4f7"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_checked_version"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/btn_transparent_with_halftransparent"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tv_version_update_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/version_update"
+                android:textColor="@color/black_3c3c3c"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_version_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_toRightOf="@+id/tv_version_update_title"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textColor="@color/black_3c3c3c"
+                android:textSize="@dimen/textSize16" />
+        </RelativeLayout>
+
+        <View style="@style/lineStyleHorizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_sip_login_state"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/btn_transparent_with_halftransparent"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/sip_login_state"
+                android:textColor="@color/black_3c3c3c"
+                android:textSize="@dimen/textSize16" />
+
+            <TextView
+                android:id="@+id/tv_sip_login_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="不在线"
+                android:textColor="@color/black_3c3c3c"
+                android:textSize="@dimen/textSize16" />
+
+            <ImageView
+                android:id="@+id/iv_sip_login_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/bg_red_point"
+                android:layout_toLeftOf="@+id/tv_sip_login_state" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+
+    <View
+        style="@style/lineStyleHorizontal"
+        android:layout_marginTop="14dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_login_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_transparent_with_halftransparent"
+            android:text="@string/login_out"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+    </LinearLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+</LinearLayout>

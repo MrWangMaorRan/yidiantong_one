@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arr_sorting">
+        <item>全部线索</item>
+        <item>最近通话</item>
+        <item>分配时间从早到晚</item>
+        <item>分配时间从晚到早</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="gender_unknown">
+        <item>男</item>
+        <item>女</item>
+        <item>未知</item>
+    </string-array>
+
+    <string-array name="customer_intention">
+        <item>不感兴趣</item>
+        <item>可能有意向</item>
+        <item>有意向</item>
+        <item>同行</item>
+        <item>稍后联系</item>
+    </string-array>
+
+    <string-array name="customer_emotion">
+        <item>感兴趣</item>
+        <item>无感</item>
+        <item>不耐烦</item>
+        <item>暴躁</item>
+    </string-array>
+
+    <string-array name="custom_industry">
+        <item>互联网</item>
+        <item>房地产</item>
+        <item>电商</item>
+    </string-array>
+
+    <string-array name="company_area">
+        <item>深圳</item>
+        <item>厦门</item>
+        <item>黑龙江</item>
+    </string-array>
+
+    <string-array name="other">
+        <item>好说话</item>
+        <item>墨迹</item>
+    </string-array>
+
+<!--    <string-array name="industry">-->
+<!--        <item>房地产</item>-->
+<!--        <item>互联网</item>-->
+<!--        <item>金融</item>-->
+<!--        <item>农业</item>-->
+<!--        <item>通讯</item>-->
+<!--    </string-array>-->
+
+    <!-- 19大行业 -->
+    <string-array name="industry">
+        <item>农林牧渔业</item>
+        <item>采矿业</item>
+        <item>制造业</item>
+        <item>电力、燃气及水的生产和供应业</item>
+        <item>建筑业</item>
+        <item>交通运输、仓储和邮政业</item>
+        <item>信息传输、计算机服务和软件业</item>
+        <item>批发和零售业</item>
+        <item>住宿、餐饮业</item>
+        <item>金融业</item>
+        <item>房地产业</item>
+        <item>租赁和商务服务业</item>
+        <item>科学研究、技术服务和地质勘查业</item>
+        <item>水利、环境和公共设施管理业</item>
+        <item>居民服务和其他服务业</item>
+        <item>教育</item>
+        <item>卫生、社会保障和社会福利业</item>
+        <item>文化、体育和娱乐业</item>
+        <item>公共管理和社会组织</item>
+    </string-array>
+
+    <string-array name="normal">
+        <item>默认列表顺序</item>
+        <item>所有未拨打线索</item>
+        <item>所有未呼通线索</item>
+        <item>所有未拨打线索和未呼通线索</item>
+    </string-array>
+
+
+    <!-- SRecyclerView ClockView 用到 -->
+    <declare-styleable name="ClockView">
+        <attr name="colck_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <string-array name="contact_screening">
+        <item>全部客户</item>
+        <item>未添加客户</item>
+    </string-array>
+
+    <string-array name="arr_input_number">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>*</item>
+        <item>0</item>
+        <item>#</item>
+    </string-array>
+
+    <string-array name="arr_input_hint">
+        <item> </item>
+        <item>ABC</item>
+        <item>DEF</item>
+        <item>GHI</item>
+        <item>JKL</item>
+        <item>MNO</item>
+        <item>PQRS</item>
+        <item>TUV</item>
+        <item>WXYZ</item>
+        <item>,</item>
+        <item>+</item>
+        <item>;</item>
+    </string-array>
+</resources>

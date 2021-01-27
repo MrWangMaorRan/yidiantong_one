@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_head" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_transparent_with_halftransparent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_company_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/company_name"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toRightOf="@+id/tv_company_name_title"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+    </RelativeLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_transparent_with_halftransparent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_company_address_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/company_address"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_company_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toRightOf="@+id/tv_company_address_title"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+    </RelativeLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_transparent_with_halftransparent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_company_industry_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/company_industry"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_company_industry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toRightOf="@+id/tv_company_industry_title"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+    </RelativeLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_transparent_with_halftransparent"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_employees_count_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/employees_count"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+
+        <TextView
+            android:id="@+id/tv_employees_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_toRightOf="@+id/tv_employees_count_title"
+            android:gravity="right"
+            android:singleLine="true"
+            android:textColor="@color/black_3c3c3c"
+            android:textSize="@dimen/textSize16" />
+    </RelativeLayout>
+
+    <View style="@style/lineStyleHorizontal" />
+
+</LinearLayout>
