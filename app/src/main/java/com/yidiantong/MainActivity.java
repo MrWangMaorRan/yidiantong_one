@@ -1,82 +1,53 @@
 package com.yidiantong;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
-import com.yidiantong.api.ApiService;
-import com.yidiantong.api.Backpro;
-import com.yidiantong.app.MainApplication;
 import com.yidiantong.app.MyLinPhoneManager;
 import com.yidiantong.base.AppManager;
 import com.yidiantong.base.BaseActivity;
 import com.yidiantong.base.Constants;
-import com.yidiantong.bean.LoginBean;
-import com.yidiantong.bean.VersionBean;
 import com.yidiantong.model.biz.IMain;
 import com.yidiantong.presenter.MainPresenter;
 import com.yidiantong.util.DensityUtils;
-import com.yidiantong.util.DownloadUtils;
 import com.yidiantong.util.HandlerUtils;
 import com.yidiantong.util.PermissinsUtils;
 import com.yidiantong.util.SharedPreferencesUtil;
 import com.yidiantong.util.SpUtils;
 import com.yidiantong.util.TimerCallBackUtils;
-import com.yidiantong.util.ToastUtils;
 import com.yidiantong.util.Utils;
 import com.yidiantong.util.log.LogUtils;
 import com.yidiantong.widget.RoundImageView;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
+import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends BaseActivity implements IMain, XRecyclerView.LoadingListener {
+public class MainActivity extends BaseActivity  implements IMain, XRecyclerView.LoadingListener{
 
     @BindView(R.id.iv_left)
     ImageView ivLeft;
@@ -152,7 +123,9 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
     LinearLayout llContent;
     @BindView(R.id.ll_header)
     LinearLayout llHeader;
-
+    private ArrayList<String> mtitleList;
+    private ArrayList<Fragment> fragments;
+    private ViewPager vp;
     private MainPresenter mainPresenter;
     private boolean drawerLayoutIsOpen;
     private TimerCallBackUtils timerCallBackUtils;
@@ -163,6 +136,7 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
     private boolean isShowInputNumber;
     private String thisVersion;
     private ProgressBar progressBar5;
+    private TabLayout tb;
 
     @Override
     public void getIntentData() {
@@ -177,6 +151,39 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
     @Override
     public void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
+//        //初始化控件
+//        initView();
+//        //添加标题
+//        initTitile();
+//        //添加fragment
+//        initFragment();
+//        //设置适配器
+//        vp.setAdapter(new MypAdapter(getSupportFragmentManager(), fragments, mtitleList));
+//        //将tablayout与fragment关联
+//        tb.setupWithViewPager(vp);
+//
+//    }
+//
+//    private void initFragment() {
+//        fragments = new ArrayList<>();
+//        fragments.add(new HomeFragment());
+//        fragments.add(new MeFragment());
+//    }
+//
+//    private void initTitile() {
+//        mtitleList = new ArrayList<>();
+//        mtitleList.add("主界面");
+//        mtitleList.add("我的");
+//        tb.setTabMode(TabLayout.MODE_FIXED);
+//        tb.addTab(tb.newTab().setText(mtitleList.get(0)));
+//        tb.addTab(tb.newTab().setText(mtitleList.get(1)));
+//    }
+//
+//    private void initView() {
+//        tb = findViewById(R.id.tb);
+//        vp = findViewById(R.id.vp);
+//
+//    }
         mainPresenter = new MainPresenter(this, this);
         Utils.getPermission(this);
 
@@ -214,12 +221,13 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
         timerCallBackUtils = new TimerCallBackUtils(millisInFuture, countDownInterval, callRingCallBack);
         timerCallBackUtils.start();
 
-        //获取自身版本
-        thisVersion = getvertion(this);
-        Log.i("xxxx", "init: " + thisVersion);
-        Log.i("xxxx", "token------: " + SpUtils.getInstance().getString("token"));
-        //请求网络后台 获取最新版本号
-        getversion();
+
+
+
+
+
+
+
     }
 
     class HeaderInterceptor implements Interceptor {
@@ -236,180 +244,10 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
     }
 
 
-    private OkHttpClient getOkhttpClient() {
-        return new OkHttpClient.Builder()
-                .addInterceptor(new HeaderInterceptor())
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                // .cookieJar(cookieJar)
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)
-                .build();
-    }
-
-    private void getversion() {
-        String url = "http://139.196.56.167:10090/api/phone/";
-        Retrofit retrofit = new Retrofit.Builder()
-                .client(getOkhttpClient())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(url)
-                .build();
-        retrofit.create(ApiService.class).getVersion()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<VersionBean>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull VersionBean versionBean) {
-                        String newVersion = versionBean.getData().getVersion();
-                        String downloadUrl = versionBean.getData().getDownloadUrl();
-                        String info = versionBean.getData().getInfo();
-                        double fileSize = versionBean.getData().getFileSize();
-                        Log.i("xxxx", "onNext: " + downloadUrl);
-                        if (thisVersion.equals(newVersion)) {
-                            //版本是最新的
-                        } else {
-                            //更新 提示
-                            showDialog(downloadUrl,info,fileSize);
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                        Log.i("xxxx", "onError: " + e.toString());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i("xxxx", "onComplete: " + thisVersion);
-                    }
-                });
-
-    }
-    //下载弹窗
-    private void showDialog(String downloadUrl, String info,double fileSize) {
-        final Dialog dialog = new Dialog(this, R.style.NormalDialogStyle);
-        View view = View.inflate(this, R.layout.showdialog, null);
-        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.CENTER;
-        dialog.setContentView(view, lp);
-        // 设置点击对话框外部是否关闭对话框
-        dialog.setCanceledOnTouchOutside(false);
-
-        Button cancel = (Button) view.findViewById(R.id.bt_cancel);
-        Button confirm = (Button) view.findViewById(R.id.bt_confirm);
-        TextView tip = view.findViewById(R.id.tv_tip);
-        tip.setText(info);
-        progressBar5 = view.findViewById(R.id.progressBar5);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //设置标题进度条风格
-              //    requestWindowFeature(Window.FEATURE_PROGRESS);
-                  setContentView(R.layout.activity_main);
-                //显示标题进度
-                setProgressBarVisibility(true);
-                //设置标题当前进度值 为5000（标题进度最大值默认为10000）
-                //关闭标题进度
-                //setProgressBarVisibility(false);
-                confirm.setVisibility(View.GONE);
-                cancel.setVisibility(View.GONE);
-                progressBar5.setVisibility(View.VISIBLE);
-                updateHint(downloadUrl,fileSize);
-
-               // dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
 
 
-    private void updateHint(String downloadUrl,double fileSize) {
-        int file= (int) (fileSize*1024*1024);
-       // progressBar5.setMax(file);
-        //下载
-        DownloadUtils downloadUtils = new DownloadUtils();
-        downloadUtils.downloadOk(downloadUrl, Constants.DOWN_PATH, new Backpro() {
-            @Override
-            public void getpro(long max, int pro) {
-                //下载完成  安装
-                if (max!=666){
-                    int percent = (int)((pro  * 100) / file);
-                    progressBar5.setMax(file);
-                    progressBar5.setProgress(pro);
-                }else {
-                    ToastUtils.showToast(MainActivity.this, "下载完成 ");
-                    File file = new File(Constants.DOWN_PATH);
-                    installAPK(file);
 
-                }
-            }
-        });
 
-    }
-
-    private void installAPK(File file) {
-        if (!file.exists()) {
-            Toast.makeText(mContext, "apk不存在!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (file.getName().endsWith(".apk")) {
-
-            try {
-                //兼容7.0
-                Uri uri;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // 适配Android 7系统版本
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
-                    uri = FileProvider.getUriForFile(MainApplication.con, "com.yidiantong.fileprovider", file);//通过FileProvider创建一个content类型的Uri
-                } else {
-                    uri = Uri.fromFile(file);
-                }
-                intent.setDataAndType(uri, "application/vnd.android.package-archive"); // 对应apk类型
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(mContext, "不是apk文件!", Toast.LENGTH_SHORT).show();
-        }
-        finish();
-        //弹出安装界面
-        MainApplication.con.startActivity(intent);
-
-    }
-
-    private String getvertion(Context context) {
-        String versionName = "";
-        try {
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
-            versionName = pi.versionName;
-            if (versionName == null || versionName.length() <= 0) {
-                return "";
-            }
-        } catch (Exception e) {
-            Log.e("VersionInfo", "Exception", e);
-        }
-        return versionName;
-    }
 
     @OnClick({R.id.iv_left, R.id.iv_right, R.id.iv_right_2, R.id.ll_select_type, R.id.ll_select_address,
             R.id.ll_select_sorting, R.id.ll_select_screening, R.id.ll_mine_info, R.id.ll_my_business, R.id.ll_setting,
@@ -466,11 +304,19 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
                 break;
             case R.id.iv_input_call:
                 mainPresenter.call(etInputText.getText().toString());
+                mainPresenter.deleteInput_quanbu();
                 break;
             case R.id.iv_input_delete:
                 mainPresenter.deleteInput();
                 break;
         }
+        ivInputDelete.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mainPresenter.deleteInput_quanbu();
+                return false;
+            }
+        });
     }
 
 
@@ -499,15 +345,6 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
         mainPresenter.onActivityResult(requestCode, resultCode, data);
     }
 
-//    @Override
-//    public boolean dispatchKeyEvent(KeyEvent event) {
-//        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK ) {
-//            //do something.
-//            return true;
-//        } else {
-//            return super.dispatchKeyEvent(event);
-//        }
-//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -582,7 +419,7 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
 
     @Override
     public void refreshKeyboardInput(String inputText) {
-        HandlerUtils.setText(etInputText, inputText);
+       HandlerUtils.setText(etInputText, inputText);
     }
 
     @Override
@@ -691,4 +528,4 @@ public class MainActivity extends BaseActivity implements IMain, XRecyclerView.L
         }
     };
 
-}
+    }

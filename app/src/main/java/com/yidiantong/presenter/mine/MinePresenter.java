@@ -136,7 +136,7 @@ public class MinePresenter implements MineImpl.OnCallBackListener {
      * 上传图片文件
      */
     public void uploadAvatar() {
-        mineImpl.uploadAvatar(mContext, headImgFile, "file", OkhttpUtil.FILE_TYPE_IMAGE, this);
+        mineImpl.uploadAvatar(mContext, headImgFile, "file", OkhttpUtil.FILE_TYPE_FILE, this);
     }
 
     // 拍照

@@ -143,24 +143,24 @@ public class CallingActivity extends BaseActivity implements ICalling {
         iv_hang_up_dualCall = findViewById(R.id.iv_hang_up);
         iv_speak_dualCall = findViewById(R.id.iv_speak);
         iv_edit_call_dualCall = findViewById(R.id.iv_edit_call);
-        bt_baocun_dualCall = findViewById(R.id.bt_baocun);
-        if (callType=="AXB"){
-
-        }else {
-            iv_edit_call_dualCall.setVisibility(View.GONE);
-            iv_hang_up_dualCall.setVisibility(View.GONE);
-            iv_speak_dualCall.setVisibility(View.GONE);
-            bt_baocun_dualCall.setVisibility(View.VISIBLE);
-            if (isCallAll) {
-                ToastUtils.showToast(this, "已全部拨打结束");
-                return;
-            }
-            if (isCallNext) {
-                callingPresenter.callNext();
-            } else {
-                callNextNoHangUp();
-            }
-        }
+      //  bt_baocun_dualCall = findViewById(R.id.bt_baocun);
+//        if (callType=="AXB"){
+//            iv_edit_call_dualCall.setVisibility(View.GONE);
+//            iv_hang_up_dualCall.setVisibility(View.GONE);
+//            iv_speak_dualCall.setVisibility(View.GONE);
+//            bt_baocun_dualCall.setVisibility(View.VISIBLE);
+//            if (isCallAll) {
+//                ToastUtils.showToast(this, "已全部拨打结束");
+//                return;
+//            }
+//            if (isCallNext) {
+//                callingPresenter.callNext();
+//            } else {
+//                callNextNoHangUp();
+//            }
+//        }else {
+//
+//        }
         // 注册广播接收器
         EventBus.getDefault().register(this);
         // 传值
@@ -287,6 +287,15 @@ public class CallingActivity extends BaseActivity implements ICalling {
         }
     }
 
+
+    @Override
+    public void saveAndHangUpCallingFailureResult() {
+//       if (!CallingActivity.this.isFinishing()){
+//            callingPresenter.showCommitFailureDialog(isCallNext);
+//        }
+
+    }
+
     @Override
     public void saveAndHangUpCallingSuccessResult() {
         isSaveSuccess = true;
@@ -298,10 +307,6 @@ public class CallingActivity extends BaseActivity implements ICalling {
         }
     }
 
-    @Override
-    public void saveAndHangUpCallingFailureResult() {
-        callingPresenter.showCommitFailureDialog(isCallNext);
-    }
 
     @Override
     public void setTagsList() {
@@ -468,6 +473,7 @@ public class CallingActivity extends BaseActivity implements ICalling {
 
             }
         }
+
         EventBus.getDefault().unregister(this);
     }
 

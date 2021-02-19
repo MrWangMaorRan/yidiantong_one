@@ -4,11 +4,14 @@ public class ApiConstants {
     // 1.0接口和AXB呼叫域名
     public static String rootUrl = "http://yidiantong.geewise.com";  // 正式
     public static String host = "yidiantong.geewise.com";  // 正式
+//    public static String host = "yidiantong.geewise.com";  // 正式
     // 2.0 双向呼叫接口IP
     public static String url_2 = "http://139.196.56.167:10090";  // 生产
 
+
 //    // 1.0接口和AXB呼叫域名
 //    public static String rootUrl = "http://test.yidiantong.geewise.com";  // 测试
+
 //    public static String host = "test.yidiantong.geewise.com";  // 测试
 //    // 2.0 双向呼叫接口IP
 //    public static String url_2 = "http://106.14.191.23:10090";  //  测试

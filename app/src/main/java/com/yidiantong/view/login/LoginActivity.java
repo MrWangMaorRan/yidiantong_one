@@ -28,20 +28,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.tencent.bugly.crashreport.CrashReport;
 import com.yidiantong.R;
 import com.yidiantong.base.BaseActivity;
-import com.yidiantong.base.Constants;
 import com.yidiantong.model.biz.login.ILogin;
 import com.yidiantong.presenter.login.LoginPresenter;
 import com.yidiantong.util.SharedPreferencesUtil;
 import com.yidiantong.util.StringUtils;
 import com.yidiantong.util.TimerCallBackUtils;
 import com.yidiantong.util.ToastUtils;
-import com.yzx.yzxsip.YzxSipSdk;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +74,7 @@ public class LoginActivity extends BaseActivity implements ILogin {
             }
         }
     };
+    private Button mBt;
 
     @Override
     public void getIntentData() {
@@ -114,7 +110,7 @@ public class LoginActivity extends BaseActivity implements ILogin {
                 break;
             case R.id.btn_login:
 
-               // SharedPreferencesUtil.getSharedPreferences(this).clearAll();
+                // SharedPreferencesUtil.getSharedPreferences(this).clearAll();
                 presenter.phoneNumErrShow(etPhoneNum, tvPhoneErr);
                 presenter.verificationCodeErrShow(etVerificationCode, tvVerificationCodeErr);
                 presenter.login(etPhoneNum, etVerificationCode);

@@ -217,15 +217,15 @@
                 android:layout_weight="3"
                 android:src="@drawable/ic_hang_up" />
 
-            <Button
-                android:id="@+id/bt_baocun"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape"
-                android:visibility="gone"
-                android:text="保存"
-                android:textSize="33dp"
-                android:textColor="#fafafa"></Button>
+<!--            <Button-->
+<!--                android:id="@+id/bt_baocun"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/shape"-->
+<!--                android:visibility="gone"-->
+<!--                android:text="保存"-->
+<!--                android:textSize="33dp"-->
+<!--                android:textColor="#fafafa"></Button>-->
             <!--                android:drawableLeft="@drawable/baocun"-->
             <ImageView
                 android:id="@+id/iv_edit_call"

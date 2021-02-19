@@ -169,7 +169,7 @@ public class CluesDetailPresenter implements CluesDetailImpl.OnCallBackListener 
 //            if (StringUtils.isNullOrBlank(cluesDetailBean.getPhoneNumber())) {
                 if (talkTimeInfoBean != null && !StringUtils.isNullOrBlank(talkTimeInfoBean.getTrafficSurplus())) {
                     double time = Double.parseDouble(talkTimeInfoBean.getTrafficSurplus());
-                    if (time > 0) {
+                    if (time > 60) {
                         Intent intent = new Intent(mContext, CallingActivity.class);
                         if(!StringUtils.isNullOrBlank(cluesDetailBean.getNumber())){
                             intent.putExtra("phoneNum", cluesDetailBean.getNumber());

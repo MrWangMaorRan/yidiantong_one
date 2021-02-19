@@ -237,6 +237,13 @@ public class MainPresenter implements MainImpl.OnCallBackListener {
         }
         iMain.refreshKeyboardInput(inputCallNumber);
     }
+    // 移除全部输入
+    public void deleteInput_quanbu() {
+        if (!StringUtils.isNullOrBlank(inputCallNumber)) {
+            inputCallNumber = inputCallNumber.substring(inputCallNumber.length());
+        }
+        iMain.refreshKeyboardInput(inputCallNumber);
+    }
 
     public void call(String callNumber) {
         if (StringUtils.isNullOrBlank(callNumber)) {
@@ -245,6 +252,7 @@ public class MainPresenter implements MainImpl.OnCallBackListener {
         if (talkTimeInfoBean != null && !StringUtils.isNullOrBlank(talkTimeInfoBean.getTrafficSurplus())) {
             double time = Double.parseDouble(talkTimeInfoBean.getTrafficSurplus());
             if (time > 0) {
+
                 Intent intent = new Intent(mContext, CallingActivity.class);
                 if (!StringUtils.isNullOrBlank(callNumber)) {
                     intent.putExtra("phoneNum", callNumber);
@@ -287,7 +295,7 @@ public class MainPresenter implements MainImpl.OnCallBackListener {
         if (callListAdapter != null) {
             callListAdapter.setCluesList(cluesList);
         }
-        tvCluesListCount.setText(cluesList.size() + "");
+       // tvCluesListCount.setText(cluesList.size() + "");
     }
 
     // industry 设为全false

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.core.BasePopupView;
 import com.lxj.xpopup.interfaces.OnCancelListener;
 import com.lxj.xpopup.interfaces.OnInputConfirmListener;
 import com.lxj.xpopup.interfaces.SimpleCallback;
@@ -44,6 +45,7 @@ import com.yidiantong.util.TimeFormat;
 import com.yidiantong.util.ToastUtils;
 import com.yidiantong.util.Utils;
 import com.yidiantong.util.log.LogUtils;
+import com.yidiantong.view.home.CallingActivity;
 import com.yidiantong.widget.FlowLayout;
 import com.yidiantong.widget.ScrollViewWithGridView;
 
@@ -79,6 +81,8 @@ public class CallingPresenter implements CallingImpl.OnCallBackListener {
     private ResponseCallAllBean callStatusBean;
     // v2.1
     private String callPhoneNum;
+    private BasePopupView popupView_two;
+    private BasePopupView popupView_one;
 
     public void setCluesId(String cluesId) {
         updateCluesInfoDto.setCluesId(cluesId);
@@ -598,7 +602,7 @@ public class CallingPresenter implements CallingImpl.OnCallBackListener {
      */
     public void showCommitFailureDialog(boolean isCallNext) {
         if (!isCallNext) {
-            new XPopup.Builder(mContext)
+           new XPopup.Builder(mContext)
 //                        .hasBlurBg(true)
 //                        .dismissOnTouchOutside(false)
 //                        .autoDismiss(false)
@@ -613,11 +617,13 @@ public class CallingPresenter implements CallingImpl.OnCallBackListener {
                         @Override
                         public void onShow() {
                             LogUtils.e("tag", "onShow");
+
                         }
 
                         @Override
                         public void onDismiss() {
                             LogUtils.e("tag", "onDismiss");
+
                         }
 
                         //如果你自己想拦截返回按键事件，则重写这个方法，返回true即可
@@ -626,17 +632,17 @@ public class CallingPresenter implements CallingImpl.OnCallBackListener {
                             return true;
                         }
                     }).asConfirm("保存失败，是否重新提交", 16, mContext.getResources().getColor(R.color.blue_3f74fd),
-                    "(直接退出后将不保留改数据)", 12, mContext.getResources().getColor(R.color.black_3c3c3c),
-                    "不，我要退出", 16, mContext.getResources().getColor(R.color.black_3c3c3c), "是，重新提交", 16,
-                    mContext.getResources().getColor(R.color.blue_3f74fd), null, new OnCancelListener() {
-                        @Override
-                        public void onCancel() {
-                            ((Activity) mContext).finish();
-                        }
-                    }, false)
+                            "(直接退出后将不保留改数据)", 12, mContext.getResources().getColor(R.color.black_3c3c3c),
+                            "不，我要退出", 16, mContext.getResources().getColor(R.color.black_3c3c3c), "是，重新提交", 16,
+                            mContext.getResources().getColor(R.color.blue_3f74fd), null, new OnCancelListener() {
+                                @Override
+                                public void onCancel() {
+                                    ((Activity) mContext).finish();
+                                }
+                            }, false)
                     .show();
         } else {
-            new XPopup.Builder(mContext)
+           new XPopup.Builder(mContext)
 //                        .hasBlurBg(true)
 //                        .dismissOnTouchOutside(false)
 //                        .autoDismiss(false)
@@ -664,14 +670,14 @@ public class CallingPresenter implements CallingImpl.OnCallBackListener {
                             return true;
                         }
                     }).asConfirm("保存失败，是否重新提交", 16, mContext.getResources().getColor(R.color.blue_3f74fd),
-                    "(直接退出后将不保留改数据)", 12, mContext.getResources().getColor(R.color.black_3c3c3c),
-                    "不，不再保留", 16, mContext.getResources().getColor(R.color.black_3c3c3c), "重新提交", 16,
-                    mContext.getResources().getColor(R.color.blue_3f74fd), null, new OnCancelListener() {
-                        @Override
-                        public void onCancel() {
-                            callNext();
-                        }
-                    }, false)
+                            "(直接退出后将不保留改数据)", 12, mContext.getResources().getColor(R.color.black_3c3c3c),
+                            "不，不再保留", 16, mContext.getResources().getColor(R.color.black_3c3c3c), "重新提交", 16,
+                            mContext.getResources().getColor(R.color.blue_3f74fd), null, new OnCancelListener() {
+                                @Override
+                                public void onCancel() {
+                                    callNext();
+                                }
+                            }, false)
                     .show();
         }
     }

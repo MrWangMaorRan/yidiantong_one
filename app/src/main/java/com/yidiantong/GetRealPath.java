@@ -11,279 +11,85 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-import com.google.gson.Gson;
-
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
 public class GetRealPath {
 
-        /**
-         * 获取url对应的绝对路径
-         * @param context
-         * @param uri
-         * @return
-         */
-//        public static String getRealFilePath(Context context, Uri uri) {
-//
-//            if (null == uri) return null;
-//
-//            final String scheme = uri.getScheme();
-//            String data = null;
-//
-//            if (scheme == null)
-//                data = uri.getPath();
-//            else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
-//                data = uri.getPath();
-//            } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-//                Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
-//                if (null != cursor) {
-//                    if (cursor.moveToFirst()) {
-//                        int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-//                        if (index > -1) {
-//                            data = cursor.getString(index);
-//                        }
-//                    }
-//                    cursor.close();
-//                }
-//            }
-//            if (!TextUtils.isEmpty(data)) {
-//                return data;
-//            } else {
-//                return getFPUriToPath(context, uri);
-//            }
-//        }
-
-        public static String getFPUriToPath(Context context, Uri uri) {
-            try {
-                List<PackageInfo> packs = context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
-                if (packs != null) {
-                    String fileProviderClassName = FileProvider.class.getName();
-                    for (PackageInfo pack : packs) {
-                        ProviderInfo[] providers = pack.providers;
-                        if (providers != null) {
-                            for (ProviderInfo provider : providers) {
-                                if (uri.getAuthority().equals(provider.authority)) {
-                                    if (provider.name.equalsIgnoreCase(fileProviderClassName)) {
-                                        Class<FileProvider> fileProviderClass = FileProvider.class;
-                                        try {
-                                            Method getPathStrategy = fileProviderClass.getDeclaredMethod("getPathStrategy", Context.class, String.class);
-                                            getPathStrategy.setAccessible(true);
-                                            Object invoke = getPathStrategy.invoke(null, context, uri.getAuthority());
-                                            if (invoke != null) {
-                                                String PathStrategyStringClass = FileProvider.class.getName() + "$PathStrategy";
-                                                Class<?> PathStrategy = Class.forName(PathStrategyStringClass);
-                                                Method getFileForUri = PathStrategy.getDeclaredMethod("getFileForUri", Uri.class);
-                                                getFileForUri.setAccessible(true);
-                                                Object invoke1 = getFileForUri.invoke(invoke, uri);
-                                                if (invoke1 instanceof File) {
-                                                    String filePath = ((File) invoke1).getAbsolutePath();
-                                                    return replace(filePath);
-                                                }
+    public static String getFPUriToPath(Context context, Uri uri) {
+        try {
+            List<PackageInfo> packs = context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
+            if (packs != null) {
+                String fileProviderClassName = FileProvider.class.getName();
+                for (PackageInfo pack : packs) {
+                    ProviderInfo[] providers = pack.providers;
+                    if (providers != null) {
+                        for (ProviderInfo provider : providers) {
+                           // if (uri.getAuthority().equals(provider.authority)) {
+                               // if (provider.name.equalsIgnoreCase(fileProviderClassName)) {
+                                    Class<FileProvider> fileProviderClass = FileProvider.class;
+                                    try {
+                                        Method getPathStrategy = fileProviderClass.getDeclaredMethod("getPathStrategy", Context.class, String.class);
+                                        getPathStrategy.setAccessible(true);
+                                        Object invoke = getPathStrategy.invoke(null, context, uri.getAuthority());
+                                        if (invoke != null) {
+                                            String PathStrategyStringClass = FileProvider.class.getName() + "$PathStrategy";
+                                            Class<?> PathStrategy = Class.forName(PathStrategyStringClass);
+                                            Method getFileForUri = PathStrategy.getDeclaredMethod("getFileForUri", Uri.class);
+                                            getFileForUri.setAccessible(true);
+                                            Object invoke1 = getFileForUri.invoke(invoke, uri);
+                                            if (invoke1 instanceof File) {
+                                                String filePath = ((File) invoke1).getAbsolutePath();
+                                                return replace(filePath);
                                             }
-                                        } catch (NoSuchMethodException e) {
-                                            e.printStackTrace();
-                                        } catch (InvocationTargetException e) {
-                                            e.printStackTrace();
-                                        } catch (IllegalAccessException e) {
-                                            e.printStackTrace();
-                                        } catch (ClassNotFoundException e) {
-                                            e.printStackTrace();
                                         }
-                                        break;
+                                    } catch (NoSuchMethodException e) {
+                                        e.printStackTrace();
+                                    } catch (InvocationTargetException e) {
+                                        e.printStackTrace();
+                                    } catch (IllegalAccessException e) {
+                                        e.printStackTrace();
+                                    } catch (ClassNotFoundException e) {
+                                        e.printStackTrace();
                                     }
                                     break;
                                 }
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-
-        }
-
-        public static String replace(String filePath) {
-            if (filePath.contains("%")) {
-                filePath = filePath.replace("%", "%25");
-            }
-            if (filePath.contains("#")) {
-                filePath = filePath.replace("#", "%23");
-            }
-            if (filePath.contains("&")) {
-                filePath = filePath.replace("&", "%26");
-            }
-            if (filePath.contains("?")) {
-                filePath = filePath.replace("?", "%3F");
-            }
-            return filePath;
-        }
-
-        /**
-         * 查询内容解析器，找到文件存储地址
-         * <p>ef: android中转换content://media/external/images/media/539163为/storage/emulated/0/DCIM/Camera/IMG_20160807_123123.jpg
-         * <p>把content://media/external/images/media/X转换为file:///storage/sdcard0/Pictures/X.jpg
-         * @param context
-         * @param contentUri
-         * @return
-         */
-        public static String getRealPathFromUri(Context context, Uri contentUri) {
-            Cursor cursor = null;
-            try {
-                String[] proj = { MediaStore.Images.Media.DATA };
-                cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-                if (cursor != null && cursor.getColumnCount() > 0) {
-                    cursor.moveToFirst();
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    String path = cursor.getString(column_index);
-                    return replace(path);
-                } else {
-                }
-            } catch (Exception e) {
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
-            }
-            return "";
-        }
-
-        /**
-         * 获取完整文件名(包含扩展名)
-         * @param filePath
-         * @return
-         */
-        public static String getFilenameWithExtension(String filePath) {
-            if (filePath == null || filePath.length() == 0) {
-                return "";
-            }
-            int lastIndex = filePath.lastIndexOf(File.separator);
-            String filename = filePath.substring(lastIndex + 1);
-            return filename;
-        }
-
-        /**
-         * 判断文件路径的文件名是否存在文件扩展名 eg: /external/images/media/2283
-         * @param filePath
-         * @return
-         */
-        public static boolean isFilePathWithExtension(String filePath) {
-            String filename = getFilenameWithExtension(filePath);
-            return filename.contains(".");
-        }
-
-        public static File getFileFromUri(Uri uri, Context context) {
-            if (uri == null) {
-                return null;
-            }
-            switch (uri.getScheme()) {
-                case "content":
-                    return getFileFromContentUri(uri, context);
-                case "file":
-                    return new File(uri.getPath());
-                default:
-                    return null;
-            }
-        }
 
 
-        private static File getFileFromContentUri(Uri contentUri, Context context) {
-            if (contentUri == null) {
-                return null;
-            }
-            File file = null;
-            String filePath;
-            String fileName;
-            String[] filePathColumn = {MediaStore.MediaColumns.DATA, MediaStore.MediaColumns.DATA};
-            ContentResolver contentResolver = context.getContentResolver();
-            Cursor cursor = contentResolver.query(contentUri, filePathColumn, null,
-                    null, null);
-            Log.d("SSSSSSSSSSSSSSSSSSS", "getFileFromContentUri: "+new Gson().toJson(filePathColumn));
-            if (cursor != null) {
-                cursor.moveToFirst();
-                filePath = cursor.getString(cursor.getColumnIndex(filePathColumn[0]));
-                fileName = cursor.getString(cursor.getColumnIndex(filePathColumn[1]));
-                cursor.close();
-                if (!TextUtils.isEmpty(filePath)) {
-                    file = new File(filePath);
-                }
-                if (!file.exists() || file.length() <= 0 || TextUtils.isEmpty(filePath)) {
-                    filePath = getPathFromInputStreamUri(context, contentUri, fileName);
-                }
-                if (!TextUtils.isEmpty(filePath)) {
-                    file = new File(filePath);
-                }
-            }
-            return file;
-        }
+                                break;
 
-
-        public static String getPathFromInputStreamUri(Context context, Uri uri, String fileName) {
-            InputStream inputStream = null;
-            String filePath = null;
-
-            if (uri.getAuthority() != null) {
-                try {
-                    inputStream = context.getContentResolver().openInputStream(uri);
-                    File file = createTemporalFileFrom(context, inputStream, fileName);
-                    filePath = file.getPath();
-
-                } catch (Exception e) {
-                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-
-                } finally {
-                    try {
-                        if (inputStream != null) {
-                            inputStream.close();
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+                            //}
+                       // }
                     }
                 }
             }
-
-            return filePath;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        private static File createTemporalFileFrom(Context context, InputStream inputStream, String fileName)
-                throws IOException {
-            File targetFile = null;
+        return null;
 
-            if (inputStream != null) {
-                int read;
-                byte[] buffer = new byte[8 * 1024];
-                //自己定义拷贝文件路径
-                targetFile = new File(context.getCacheDir(), fileName);
-                if (targetFile.exists()) {
-                    targetFile.delete();
-                }
-                OutputStream outputStream = new FileOutputStream(targetFile);
+    }
 
-                while ((read = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, read);
-                }
-                outputStream.flush();
-
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return targetFile;
+    public static String replace(String filePath) {
+        if (filePath.contains("%")) {
+            filePath = filePath.replace("%", "%25");
         }
+        if (filePath.contains("#")) {
+            filePath = filePath.replace("%", "%23");
+        }
+        if (filePath.contains("&")) {
+            filePath = filePath.replace("%", "%26");
+        }
+        if (filePath.contains("?")) {
+            filePath = filePath.replace("%", "%3F");
+        }
+        return filePath;
+    }
     /**
      *  根据Uri获取文件真实地址
      */
@@ -297,7 +103,8 @@ public class GetRealPath {
             realPath = uri.getPath();
         } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
             Cursor cursor = context.getContentResolver().query(uri,
-                    new String[]{MediaStore.Images.ImageColumns.DATA},
+                  //  new String[]{MediaStore.Images.ImageColumns.DATA},
+                    new String[]{MediaStore.Files.FileColumns.DATA},
                     null, null, null);
             if (null != cursor) {
                 if (cursor.moveToFirst()) {

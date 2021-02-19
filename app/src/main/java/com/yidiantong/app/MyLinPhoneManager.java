@@ -166,7 +166,7 @@ public class MyLinPhoneManager {
             String account = SharedPreferencesUtil.getSharedPreferences(mContext).getString("sipAccount", "");
             String password = SharedPreferencesUtil.getSharedPreferences(mContext).getString("sipPassword", "");
             String serverIP = "siptest.szi5g.com:2060";
-//          String serverIP = "sipproxy.ucpaas.com:25060";
+           // String serverIP = "ydtapp.szi5g.com:2060";
 
             LogUtils.e(TAG, "sip: account = " + account + ", password = " + password);
             if (StringUtils.isNullOrBlank(account) || StringUtils.isNullOrBlank(password)) {

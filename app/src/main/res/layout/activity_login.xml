@@ -21,6 +21,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:src="@drawable/ic_logo" />
+
     </RelativeLayout>
 
     <!-- 登录相关输入布局 -->

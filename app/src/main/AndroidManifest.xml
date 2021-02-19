@@ -6,29 +6,32 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 语音通话权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 免提权限 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 语音通话权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 免提权限 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <!-- 拍照和相册 -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 拍照和相册 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 拨打电话 -->
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!-- 获取通讯录 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 获取通讯录 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 震动 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 前台服务 -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!-- 通话记录 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 前台服务 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 通话记录 -->
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
+
+
 
 
 
@@ -42,57 +45,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+<!--        <activity-->
+<!--            android:name="com.tencent.bugly.beta.ui.BetaActivity"-->
+<!--            android:configChanges="keyboardHidden|orientation|screenSize|locale"-->
+<!--            android:theme="@android:style/Theme.Translucent" />-->
+        <activity android:name=".view.warehouse.HouseActivity"></activity>
         <activity android:name=".view.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<!--            &lt;!&ndash;docx&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="application/vnd.openxmlformats-officedocument.wordprocessingml.document" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;jpeg&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="image/jpeg" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;jpg&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="image/jpeg" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;png&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="image/bmp" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;png&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="image/png" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;pdf&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="application/pdf" />-->
-<!--            </intent-filter>-->
-<!--            &lt;!&ndash;doc&ndash;&gt;-->
-<!--            <intent-filter tools:ignore="AppLinkUrlError">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="application/msword" />-->
-<!--            </intent-filter>-->
         </activity>
-
+        <provider
+            android:name=".util.BuglyFileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.yidiantong.fileprovider"
@@ -103,7 +76,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".view.login.LoginActivity" />
+        <activity android:name=".view.login.LoginActivity" /> <!-- <activity android:name=".view.login.LoginActivity" /> -->
         <activity android:name=".MainActivity" />
         <activity
             android:name=".StartActivity"
@@ -122,21 +95,15 @@
         <activity android:name=".view.mine.MineInfoActivity" />
         <activity android:name=".view.home.CluesDetailActivity" />
         <activity android:name=".view.home.PickContactActivity">
-            <!--doc-->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="*/*" />
             </intent-filter>
-
-        </activity>
-
-
-
-        <!-- sip sdk的服务 -->
-        <service android:name="com.yzx.yzxsip.service.PhoneService"/>
-
-
+        </activity> <!-- sip sdk的服务 -->
+        <service android:name="com.yzx.yzxsip.service.PhoneService" />
     </application>
 
 </manifest>

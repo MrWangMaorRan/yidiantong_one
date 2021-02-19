@@ -52,7 +52,7 @@ public class WaitingDialogUtils {
             // dialog 半透明左右边距
             DialogWidthUtils.setDialogWidthWRAP(dialog);
             // 展示dialog
-            dialog.show();
+           // dialog.show();
         }
     }
 
@@ -63,5 +63,4 @@ public class WaitingDialogUtils {
             dialog.dismiss();
         }
     }
-
 }

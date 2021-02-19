@@ -117,4 +117,7 @@
     <string name="checked_all">全选</string>
     <string name="contact_is_add">已添加</string>
     <string name="call_next">连续拨打</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
